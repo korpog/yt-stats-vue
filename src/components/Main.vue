@@ -28,8 +28,14 @@ export default {
     };
   },
   methods: {
+    getChannelIdFromURL(url) {
+      let idx = url.lastIndexOf('/');
+      let channelId = url.slice(idx + 1);
+      return channelId;
+    },
     getData() {
-      apiService.getResults(this.url).catch(err => alert(err));
+      let channelId = this.getChannelIdFromURL(this.url);
+      apiService.getResults(channelId).catch(err => alert(err));
     }
   }
 };

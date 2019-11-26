@@ -3,12 +3,16 @@ const URL = 'http://localhost:8000';
 
 export class APIService {
 
-    constructor() {}
-  
-    getResults(ytUrl) {
-      const url = `${URL}/results/${ytUrl}`;
-      return axios.get(url)
-        .then(response => alert(response.data))
-        .catch(error => alert(error));
-    }
+  constructor() {}
+
+  getResults(channelID) {
+    const url = `${URL}/results`;
+    return axios.get(url, {
+        params: {
+          id: channelID
+        }
+      })
+      .then(response => alert(response.data))
+      .catch(error => alert(error));
+  }
 }
