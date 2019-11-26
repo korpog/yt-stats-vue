@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Main msg="YT video stats"/>
+    <Main/>
   </div>
 </template>
 
@@ -23,5 +23,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+html, body {
+  background-color: aliceblue;
 }
 </style>
