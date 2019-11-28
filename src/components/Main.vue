@@ -13,7 +13,9 @@
       v-model="url"
     />
     <button type="submit" id="btn" @click="getData()">Submit</button>
-    <Chart></Chart>
+    <div id="chart">
+      <Chart :chartdata="chartdata" :options="options"></Chart>
+    </div>
   </div>
 </template>
 
@@ -31,28 +33,53 @@ export default {
       url: "",
       data: {},
       chartdata: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
         datasets: [
           {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
+            label: "# of Videos",
+            data: [12, 19, 3, 5, 2, 3, 4, 6, 2, 9, 11, 2],
             backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
+              "rgba(255, 99, 132, 0.3)",
+              "rgba(54, 162, 235, 0.3)",
+              "rgba(255, 206, 86, 0.3)",
+              "rgba(75, 192, 192, 0.3)",
+              "rgba(77, 99, 255, 0.3)",
+              "rgba(56, 200, 100, 0.3)",
+              "rgba(147, 102, 15, 0.3)",
+              "rgba(53, 66, 99, 0.3)",
+              "rgba(145, 98, 255, 0.3)",
+              "rgba(100, 102, 220, 0.3)",
+              "rgba(5, 170, 255, 0.3)",
+              "rgba(255, 55, 199, 0.3)"
             ],
             borderColor: [
               "rgba(255, 99, 132, 1)",
               "rgba(54, 162, 235, 1)",
               "rgba(255, 206, 86, 1)",
               "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
+              "rgba(77, 99, 255, 1)",
+              "rgba(56, 200, 100, 1)",
+              "rgba(147, 102, 15, 1)",
+              "rgba(53, 66, 99, 1)",
+              "rgba(145, 98, 255, 1)",
+              "rgba(100, 102, 220, 1)",
+              "rgba(5, 170, 255, 1)",
+              "rgba(255, 55, 199, 1)"
             ],
-            borderWidth: 1
+            borderWidth: 2
           }
         ]
       },
@@ -101,11 +128,10 @@ input {
 #title {
   position: -webkit-sticky;
   position: sticky;
-  top: 20px;
+  top: 5px;
   font-family: "Open Sans", sans-serif;
-  border: solid black 1px;
-  border-radius: 5px;
-  background: linear-gradient(to bottom, #b6e026 0%, #abdc28 100%);
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #b0d4e3 0%, #88bacf 100%);
   width: 50%;
   margin: auto;
 }
@@ -113,8 +139,18 @@ input {
   display: block;
   margin: auto;
   color: black;
-  background-color: ghostwhite;
-  border-radius: 5px;
-  padding: 5px;
+  background-color: seashell;
+  border-radius: 1px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1em;
+  padding: 0.2em 0.8em;
+}
+#btn:hover {
+  color: crimson;
+}
+#chart {
+  max-height: 1280px;
+  max-width: 720px;
+  margin: auto;
 }
 </style>
