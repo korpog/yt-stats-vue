@@ -14,7 +14,7 @@
     />
     <button type="submit" id="btn" @click="getData()">Submit</button>
     <div id="chart">
-      <Chart :chartdata="chartdata" :options="options"></Chart>
+      <chart :chart-data="chartdata"></chart>
     </div>
   </div>
 </template>
@@ -31,8 +31,19 @@ export default {
   data() {
     return {
       url: "",
+      years: [],
       data: {},
-      chartdata: {
+      chartdata: {}
+    };
+  },
+  methods: {
+    getChannelIdFromURL(url) {
+      let idx = url.lastIndexOf("/");
+      let channelId = url.slice(idx + 1);
+      return channelId;
+    },
+    fillData(dataSet) {
+      this.chartdata = {
         labels: [
           "January",
           "February",
@@ -50,7 +61,7 @@ export default {
         datasets: [
           {
             label: "# of Videos",
-            data: [12, 19, 3, 5, 2, 3, 4, 6, 2, 9, 11, 2],
+            data: dataSet,
             backgroundColor: [
               "rgba(255, 99, 132, 0.3)",
               "rgba(54, 162, 235, 0.3)",
@@ -82,29 +93,27 @@ export default {
             borderWidth: 2
           }
         ]
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
-    };
-  },
-  methods: {
-    getChannelIdFromURL(url) {
-      let idx = url.lastIndexOf("/");
-      let channelId = url.slice(idx + 1);
-      return channelId;
+      };
     },
     getData() {
       let channelId = this.getChannelIdFromURL(this.url);
-      this.data = apiService.getResults(channelId).catch(err => alert(err));
+      apiService
+        .getResults(channelId)
+        .then(data => {
+          let newData = JSON.parse(data);
+          this.data = newData;
+          for (const year in newData) {
+            this.years.push(parseInt(year));
+          }
+
+          let currentYear = Math.max(...this.years);
+          alert(currentYear);
+          let currentData = newData[currentYear];
+          alert(currentData);
+          alert(currentData[0]);
+          this.fillData(currentData);
+        })
+        .catch(err => alert(err));
     }
   }
 };
@@ -143,7 +152,9 @@ input {
   border-radius: 1px;
   font-family: "Open Sans", sans-serif;
   font-size: 1em;
-  padding: 0.2em 0.8em;
+  padding: 0.2em 1em;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 }
 #btn:hover {
   color: crimson;

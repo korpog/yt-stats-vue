@@ -12,7 +12,7 @@ export class APIService {
           id: channelID
         }
       })
-      .then(response => alert(response.data))
+      .then(response => response.data)
       .catch(error => alert(error));
   }
 }
