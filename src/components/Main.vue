@@ -2,16 +2,23 @@
   <div class="main">
     <h1 id="title">VidsPerMonth</h1>
     <label for="url">Enter an URL for a YouTube channel</label>
-    <input
-      type="url"
-      name="url"
-      id="url"
-      placeholder="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw"
-      pattern="https://.*"
-      size="50"
-      required
-      v-model="url"
-    />
+    <div>
+      <input
+        type="url"
+        name="url"
+        id="url"
+        placeholder="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw"
+        pattern="https://.*"
+        size="50"
+        required
+        v-model="url"
+      />
+      <select v-model="currentYear" @change="onChange($event)">
+        <option v-for="year in years" v-bind:key="year">{{ year }}</option>
+      </select>
+      <span>Selected: {{ currentYear }}</span>
+    </div>
+
     <button type="submit" id="btn" @click="getData()">Submit</button>
     <div id="chart">
       <chart :chart-data="chartdata"></chart>
@@ -32,6 +39,7 @@ export default {
     return {
       url: "",
       years: [],
+      currentYear: 2019,
       data: {},
       chartdata: {}
     };
@@ -100,6 +108,7 @@ export default {
       apiService
         .getResults(channelId)
         .then(data => {
+          this.years = new Array();
           let newData = JSON.parse(data);
           this.data = newData;
           for (const year in newData) {
@@ -107,14 +116,15 @@ export default {
           }
 
           let currentYear = Math.max(...this.years);
-          alert(currentYear);
           let currentData = newData[currentYear];
-          alert(currentData);
-          alert(currentData[0]);
           this.fillData(currentData);
         })
         .catch(err => alert(err));
-    }
+    },
+    onChange(event) {
+      let newDataSet = this.data[event.target.value];
+      this.fillData(newDataSet);
+    },
   }
 };
 </script>
@@ -130,7 +140,7 @@ label {
   font-family: "Lato", sans-serif;
   margin: 5px;
 }
-input {
+input, select {
   font-family: "Lato", sans-serif;
   margin: 3px;
 }
