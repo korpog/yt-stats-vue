@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL = 'http://localhost:8000';
+const URL = 'https://ytstats5.herokuapp.com';
 
 export class APIService {
 
