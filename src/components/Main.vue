@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <h1 id="title">VidsPerMonth</h1>
-    <label for="url">Enter an URL for a YouTube channel</label>
-    <div>
+    <label for="url">Enter a URL for a YouTube channel</label>
+    <form @submit.prevent="getData($event)">
       <input
         type="url"
         name="url"
@@ -10,16 +10,16 @@
         placeholder="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw"
         pattern="https://.*"
         size="50"
-        required
         v-model="url"
+        required
       />
-      <select v-model="currentYear" @change="onChange($event)">
+      <select v-model="currentYear" selected="2019" @change="onChange($event)">
         <option v-for="year in years" v-bind:key="year">{{ year }}</option>
       </select>
       <span>Selected: {{ currentYear }}</span>
-    </div>
+    <button type="submit" id="btn" >Submit</button>
+    </form>
 
-    <button type="submit" id="btn" @click="getData()">Submit</button>
     <div id="chart">
       <chart :chart-data="chartdata"></chart>
     </div>
@@ -71,30 +71,30 @@ export default {
             label: "# of Videos",
             data: dataSet,
             backgroundColor: [
-              "rgba(255, 99, 132, 0.3)",
-              "rgba(54, 162, 235, 0.3)",
-              "rgba(255, 206, 86, 0.3)",
-              "rgba(75, 192, 192, 0.3)",
-              "rgba(77, 99, 255, 0.3)",
-              "rgba(56, 200, 100, 0.3)",
-              "rgba(147, 102, 15, 0.3)",
-              "rgba(53, 66, 99, 0.3)",
-              "rgba(145, 98, 255, 0.3)",
-              "rgba(100, 102, 220, 0.3)",
-              "rgba(5, 170, 255, 0.3)",
-              "rgba(255, 55, 199, 0.3)"
+              "rgba(255, 99, 132, 0.5)",
+              "rgba(54, 162, 235, 0.5)",
+              "rgba(255, 206, 200, 0.5)",
+              "rgba(75, 192, 192, 0.5)",
+              "rgba(77, 99, 255, 0.5)",
+              "rgba(56, 200, 100, 0.5)",
+              "rgba(147, 102, 15, 0.5)",
+              "rgba(53, 66, 99, 0.5)",
+              "rgba(145, 98, 255, 0.5)",
+              "rgba(200, 0, 0, 0.5)",
+              "rgba(5, 170, 255, 0.5)",
+              "rgba(255, 55, 199, 0.5)"
             ],
             borderColor: [
               "rgba(255, 99, 132, 1)",
               "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
+              "rgba(255, 206, 200, 1)",
               "rgba(75, 192, 192, 1)",
               "rgba(77, 99, 255, 1)",
               "rgba(56, 200, 100, 1)",
               "rgba(147, 102, 15, 1)",
               "rgba(53, 66, 99, 1)",
               "rgba(145, 98, 255, 1)",
-              "rgba(100, 102, 220, 1)",
+              "rgba(200, 0, 0, 0.5)",
               "rgba(5, 170, 255, 1)",
               "rgba(255, 55, 199, 1)"
             ],
@@ -103,7 +103,8 @@ export default {
         ]
       };
     },
-    getData() {
+    getData(event) {
+      event.preventDefault();
       let channelId = this.getChannelIdFromURL(this.url);
       apiService
         .getResults(channelId)
@@ -151,15 +152,15 @@ input, select {
   font-family: "Open Sans", sans-serif;
   border-radius: 4px;
   background: linear-gradient(to bottom, #b0d4e3 0%, #88bacf 100%);
-  width: 50%;
+  width: 60%;
   margin: auto;
 }
 #btn {
   display: block;
   margin: auto;
   color: black;
-  background-color: seashell;
-  border-radius: 1px;
+  background-color: blanchedalmond;
+  border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-size: 1em;
   padding: 0.2em 1em;
@@ -173,5 +174,6 @@ input, select {
   max-height: 1280px;
   max-width: 720px;
   margin: auto;
+  padding: 5px;
 }
 </style>
