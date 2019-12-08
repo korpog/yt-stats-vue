@@ -1,13 +1,16 @@
 <template>
   <div class="main">
     <h1 id="title">VidsPerMonth</h1>
-    <label for="url">Enter a URL for a YouTube channel</label>
+    <label for="url">
+      Enter a URL for a YouTube channel
+      <br />(e.g. https://www.youtube.com/channel/UCCezIgC97PvUuR4_gbFUs5g)
+    </label>
     <form @submit.prevent="getData($event)">
       <input
         type="url"
         name="url"
         id="url"
-        placeholder="https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw"
+        placeholder="https://www.youtube.com/channel/UCCezIgC97PvUuR4_gbFUs5g"
         pattern="https://.*"
         size="50"
         v-model="url"
@@ -17,7 +20,7 @@
         <option v-for="year in years" v-bind:key="year">{{ year }}</option>
       </select>
       <span>Selected: {{ currentYear }}</span>
-    <button type="submit" id="btn" >Submit</button>
+      <button type="submit" id="btn">Submit</button>
     </form>
 
     <div id="chart">
@@ -125,7 +128,7 @@ export default {
     onChange(event) {
       let newDataSet = this.data[event.target.value];
       this.fillData(newDataSet);
-    },
+    }
   }
 };
 </script>
@@ -141,7 +144,8 @@ label {
   font-family: "Lato", sans-serif;
   margin: 5px;
 }
-input, select {
+input,
+select {
   font-family: "Lato", sans-serif;
   margin: 3px;
 }
