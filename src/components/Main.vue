@@ -16,7 +16,7 @@
         v-model="url"
         required
       />
-      <select v-model="currentYear" selected="2019" @change="onChange($event)">
+      <select v-model="currentYear" selected="2020" @change="onChange($event)">
         <option v-for="year in years" v-bind:key="year">{{ year }}</option>
       </select>
       <span>Selected: {{ currentYear }}</span>
@@ -42,7 +42,7 @@ export default {
     return {
       url: "",
       years: [],
-      currentYear: 2019,
+      currentYear: 2020,
       data: {},
       chartdata: {}
     };
